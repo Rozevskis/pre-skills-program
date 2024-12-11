@@ -44,6 +44,15 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'isAdmin' => 'boolean'
         ];
+    }
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }
