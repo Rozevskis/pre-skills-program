@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Comment;
 use App\Models\User;
 use App\Models\Ticket;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -15,7 +16,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory(10)->create();
-        Ticket::factory(50)->create();
+        Ticket::factory(20)->create();
+        Comment::factory(40)->create();
 
         // User::factory()->create([
         //     'name' => 'Test User',
