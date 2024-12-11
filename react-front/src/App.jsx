@@ -1,19 +1,26 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
+import Layout from "./Pages/Layout";
+import Home from "./Pages/Home";
+import Register from "./Pages/Auth/Register";
+import Login from "./Pages/Auth/Login";
+import { useContext } from "react";
+import { AppContext } from "./Context/AppContext";
 
-function App() {
-  const [count, setCount] = useState(0);
-
+export default function App() {
+  const { user } = useContext(AppContext);
   return (
-    <>
-      <div>
-        {" "}
-        <h1 className="color-red text-3xl font-bold underline">Hello world!</h1>
-      </div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          {/* Guest */}
+          <Route path="/register" element={user ? <Home /> : <Register />} />
+          <Route path="/login" element={user ? <Home /> : <Login />} />
+
+          {/* Authenticated */}
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
