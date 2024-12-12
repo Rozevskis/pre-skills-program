@@ -33,14 +33,8 @@ export default function Home() {
       setCreate(false);
     }
   }
-  function handleDrop(e) {
-    e.preventDefault();
-    console.log(e.dataTransfer.getData("text/plain"));
-  }
-
   async function createTicket(e) {
     e.preventDefault();
-    console.log(formData);
     const res = await fetch("/api/tickets", {
       method: "post",
       headers: {
@@ -59,9 +53,6 @@ export default function Home() {
   }
   return (
     <>
-      <a className="bg-slate-500 p-2 rounded" onClick={() => handleCreate()}>
-        Add Ticekt
-      </a>
       <div
         className={`  ${
           !create ? "hidden" : ""
@@ -96,7 +87,15 @@ export default function Home() {
           </div>
         </form>
       </div>
-      <h1 className="title">Home</h1>
+      <div className="flex flex-col items-center m-2">
+        <a
+          className="bg-slate-500 p-2 rounded w-[100px]"
+          onClick={() => handleCreate()}
+        >
+          Add Ticekt
+        </a>
+        <h1 className="title">Home</h1>
+      </div>
       <div className="flex flex-row gap-6 p-3 ">
         <Column
           title="New"
@@ -131,15 +130,6 @@ export default function Home() {
           active={active}
           setActive={setActive}
         />
-        <div
-          onDrop={() => {
-            handleDrop();
-          }}
-          onDragEnter={handleDrop}
-          className="bg-red-400 w-[300px] h-[300px]"
-        >
-          Drop
-        </div>
       </div>
     </>
   );
