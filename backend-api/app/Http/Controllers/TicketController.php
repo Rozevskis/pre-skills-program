@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+// use Illuminate\Routing\Controllers\HasMiddleware;
+// use Illuminate\Routing\Controllers\Middleware;
 
 class TicketController extends Controller
 {
+    // public static function middleware(): array
+    // {
+    //     return [ 'sanctum',
+    //         new Middleware('sanctum', except: ['index', 'show'])
+    //     ];
+    // }
+
     /**
      * Display a listing of the resource.
      */
@@ -43,8 +52,9 @@ class TicketController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
-        //
+      Ticket::findOrFail($id)->delete();
+        return  response('', 200); 
     }
 }
