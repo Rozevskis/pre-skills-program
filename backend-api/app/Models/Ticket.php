@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'details', 'status'];
+    protected $fillable = ['user_id', 'title', 'details', 'status'];
     public function user()
     {
         return $this->belongsTo(User::class);

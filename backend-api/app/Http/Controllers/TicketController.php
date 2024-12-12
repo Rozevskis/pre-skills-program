@@ -11,15 +11,15 @@ class TicketController extends Controller
 {
     // public static function middleware(): array
     // {
-    //     return [ 'sanctum',
-    //         new Middleware('sanctum', except: ['index', 'show'])
+    //     return [ 'auth:sanctum',
+    //     Middleware('auth:sanctum', except: ['index'])
     //     ];
     // }
 
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request,)
     {
         $allTickets = Ticket::all();
         return $allTickets;
@@ -30,7 +30,18 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
+        $fields = $request->validate([
+            'title' => 'required|max:255',
+            'details' => 'nullable',
+        ]);
         
+        $ticket = Ticket::create([
+            'user_id' => 1,
+            'title' => $fields['title'],
+            'details' => $fields['details'],
+            'status' => 'new'
+        ]);
+        return $ticket;
     }
 
     /**
@@ -47,17 +58,23 @@ class TicketController extends Controller
     public function update(Request $request, string $id)
     {
         $ticket = Ticket::findOrFail($id);
-        // $fields = $request->validate([
-        //     'title' => 'required|max:255',
-        //     'details' => 'required|email|unique:users',
-        // ]);
+        $fields = $ticket->validate([
+            'title' => 'required|max:255',
+            'details' => 'required|email|unique:users',
+        ]);
 
-        $ticket = Ticket::update(['status' =>]);
+        $newStatus = $request->status;
 
-        $token = $user->createToken($request->name);
+        $ticket->update([
+            'user_id' => 1,
+            'title' => $fields['title'],
+            'details' => $fields['details'],
+            'status' => 'new'
+        ]);
+        
         return [
-            'user' => $user,
-            'token' => $token->plainTextToken
+            'ticket' => $ticket,
+            'newStatus' => $newStatus
         ];
     }
 

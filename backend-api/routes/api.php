@@ -15,4 +15,5 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 Route::apiResource('tickets', TicketController::class);
-Route::apiResource('comments', CommentController::class);
+// Route::apiResource('comments', CommentController::class);
+
