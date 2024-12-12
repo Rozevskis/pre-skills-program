@@ -2,20 +2,19 @@ import Ticket from "../components/Ticket";
 import Column from "../components/Column";
 import { useEffect, useState } from "react";
 export default function Home() {
-  const [ticekts, setTicekts] = useState([]);
+  const [tickets, setTickets] = useState([]);
   useEffect(() => {
-    getTicekts();
+    gettickets();
   }, []);
 
-  async function getTicekts() {
+  async function gettickets() {
     const res = await fetch("/api/tickets", {
       method: "get",
     });
     const data = await res.json();
     if (res.ok) {
-      setTicekts(data);
+      setTickets(data);
     }
-    console.log(data);
   }
   return (
     <>
@@ -26,18 +25,27 @@ export default function Home() {
           status="new"
           color={"bg-sky-200"}
           textColor={"text-sky-600"}
+          tickets={tickets}
+          setTickets={setTickets}
+          gettickets={gettickets}
         />
         <Column
           title="Approved"
           status="approved"
           color={"bg-yellow-200"}
           textColor={"text-yellow-600"}
+          tickets={tickets}
+          setTickets={setTickets}
+          gettickets={gettickets}
         />
         <Column
           title="Done"
           status="done"
           color={"bg-lime-200"}
           textColor={"text-lime-600"}
+          tickets={tickets}
+          setTickets={setTickets}
+          gettickets={gettickets}
         />
       </div>
     </>
