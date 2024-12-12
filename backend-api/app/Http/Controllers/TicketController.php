@@ -4,17 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Ticket;
 use Illuminate\Http\Request;
-// use Illuminate\Routing\Controllers\HasMiddleware;
-// use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class TicketController extends Controller
+class TicketController extends Controller implements HasMiddleware
 {
-    // public static function middleware(): array
-    // {
-    //     return [ 'auth:sanctum',
-    //     Middleware('auth:sanctum', except: ['index'])
-    //     ];
-    // }
+    public static function middleware()
+    {
+        return [
+            new Middleware('auth:sanctum', except: ['index', 'show'])
+        ];
+    }
 
     /**
      * Display a listing of the resource.
@@ -34,14 +34,14 @@ class TicketController extends Controller
             'title' => 'required|max:255',
             'details' => 'nullable',
         ]);
-        
-        $ticket = Ticket::create([
-            'user_id' => 1,
+
+        $ticket = $request->user()->tickets()->create([
             'title' => $fields['title'],
-            'details' => $fields['details'],
-            'status' => 'new'
+            'details' => $fields['details'] ?? '',
+            'status' => 'open',
         ]);
-        return $ticket;
+
+        return response()->json($ticket, 201);
     }
 
     /**
@@ -71,7 +71,7 @@ class TicketController extends Controller
             'details' => $fields['details'],
             'status' => 'new'
         ]);
-        
+
         return [
             'ticket' => $ticket,
             'newStatus' => $newStatus
@@ -83,7 +83,7 @@ class TicketController extends Controller
      */
     public function destroy(Request $request, string $id)
     {
-      Ticket::findOrFail($id)->delete();
-        return  response('', 200); 
+        Ticket::findOrFail($id)->delete();
+        return  response('', 200);
     }
 }
