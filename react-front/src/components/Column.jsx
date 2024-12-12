@@ -10,9 +10,19 @@ export default function Column({
   active,
   setActive,
 }) {
+  const handleDrop = (e) => {
+    e.preventDefault();
+    console.log(e.dataTransfer.getData("text/plain"));
+    console.log(status);
+  };
   return (
     <>
-      <div className={`w-72 h-[800px] ${color}  ${active ? "opacity-80" : ""}`}>
+      <div
+        onDrop={() => {
+          handleDrop();
+        }}
+        className={`w-72 h-[800px] ${color}  ${active ? "opacity-80" : ""}`}
+      >
         <h1 className={`font-bold p-2 text-left title ${textColor}`}>
           {title}
         </h1>

@@ -20,7 +20,7 @@ export default function Ticekt({
     }
   }
   const handleDragStart = (e, id) => {
-    // e.preventDefault();
+
     // setActive(true);
     e.dataTransfer.setData("text/plain", id);
   };
