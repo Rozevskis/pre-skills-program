@@ -10,9 +10,18 @@ export default function Ticekt({ id, title, details }) {
       setOptions(false);
     }
   }
+  function handleDragStart(event, id) {
+    event.preventDefault();
+    // dataTransfer
+    console.log(`Dragging ${id}`);
+  }
   return (
     <>
-      <div className="p-3 gap-2 bg-neutral-100 rounded-xl text-left flex flex-col shadow-md">
+      <div
+        draggable
+        onDragStart={(e) => handleDragStart(e, id)}
+        className="p-3 gap-2 bg-neutral-100 rounded-xl text-left flex flex-col shadow-md"
+      >
         <div className="flex justify-between">
           {id}{" "}
           <a onClick={() => handleOptions()} className=" cursor-pointer">
