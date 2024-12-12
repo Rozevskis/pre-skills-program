@@ -1,9 +1,22 @@
 import Ticket from "../components/Ticket";
 import Column from "../components/Column";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 export default function Home() {
-  const [ticekt, setTicekts] = useState([]);
+  const [ticekts, setTicekts] = useState([]);
+  useEffect(() => {
+    getTicekts();
+  }, []);
 
+  async function getTicekts() {
+    const res = await fetch("/api/tickets", {
+      method: "get",
+    });
+    const data = await res.json();
+    if (res.ok) {
+      setTicekts(data);
+    }
+    console.log(data);
+  }
   return (
     <>
       <h1 className="title">Home</h1>
