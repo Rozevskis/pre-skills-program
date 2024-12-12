@@ -1,11 +1,11 @@
-import Ticekt from "./Ticket";
+import Ticket from "./Ticket";
 export default function Column({
   status,
   title,
   color,
   textColor,
   tickets,
-  setTicekts,
+  setTicket,
   getTickets,
   active,
   setActive,
@@ -30,7 +30,7 @@ export default function Column({
           {tickets
             .filter((ticket) => status == ticket.status)
             .map((ticket) => (
-              <Ticekt
+              <Ticket
                 id={ticket.id}
                 title={ticket.title}
                 getTickets={getTickets}
