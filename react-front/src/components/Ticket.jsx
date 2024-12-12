@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { AppContext } from "../Context/AppContext";
 
-export default function Ticekt({
+export default function Ticket({
   id,
   title,
   details,
@@ -20,7 +20,6 @@ export default function Ticekt({
     }
   }
   const handleDragStart = (e, id) => {
-
     // setActive(true);
     e.dataTransfer.setData("text/plain", id);
   };

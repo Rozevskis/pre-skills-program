@@ -1,7 +1,10 @@
+import { useContext } from "react";
+import { AppContext } from "../Context/AppContext";
 import Ticket from "../components/Ticket";
 import Column from "../components/Column";
 import { act, useEffect, useState } from "react";
 export default function Home() {
+  const { token } = useContext(AppContext);
   const [tickets, setTickets] = useState([]);
   const [active, setActive] = useState(false);
   const [create, setCreate] = useState(false);
@@ -40,6 +43,9 @@ export default function Home() {
     console.log(formData);
     const res = await fetch("/api/tickets", {
       method: "post",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify(formData),
     });
     const data = await res.json();

@@ -38,7 +38,7 @@ class TicketController extends Controller implements HasMiddleware
         $ticket = $request->user()->tickets()->create([
             'title' => $fields['title'],
             'details' => $fields['details'] ?? '',
-            'status' => 'open',
+            'status' => 'new',
         ]);
 
         return response()->json($ticket, 201);
