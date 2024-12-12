@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../Context/AppContext";
 
 export default function Login() {
-  const { setToken } = useContext(AppContext);
+  const { user, token, setUser, setToken } = useContext(AppContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",

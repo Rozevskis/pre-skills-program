@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AppContext } from "../Context/AppContext";
 
-export default function Ticekt({ id, title, details }) {
+export default function Ticekt({ id, title, details, getTickets }) {
   const [options, setOptions] = useState(false);
+  const { token } = useContext(AppContext);
 
   function handleOptions() {
     if (!options) {
@@ -11,20 +13,32 @@ export default function Ticekt({ id, title, details }) {
     }
   }
   function handleDragStart(event, id) {
-    event.preventDefault();
-    // dataTransfer
-    console.log(`Dragging ${id}`);
+    // event.preventDefault();
+    // event.dataTransfer("file")
+    // console.log(`Dragging ${id}`);
+  }
+  async function handleDelete(id) {
+    const res = await fetch(`/api/tickets/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (res.ok) {
+      setOptions(false);
+      getTickets();
+    }
   }
   return (
     <>
       <div
-        draggable
-        onDragStart={(e) => handleDragStart(e, id)}
+        draggable="True"
+        // onDragStart={(e) => handleDragStart(e, id)}
         className="p-3 gap-2 bg-neutral-100 rounded-xl text-left flex flex-col shadow-md"
       >
         <div className="flex justify-between">
-          {id}{" "}
-          <a onClick={() => handleOptions()} className=" cursor-pointer">
+          {id}
+          <a onClick={() => handleOptions(id)} className=" cursor-pointer">
             ...
           </a>
           <div
@@ -33,7 +47,7 @@ export default function Ticekt({ id, title, details }) {
                 mt-[30px] 
             ml-[180px] absolute p-3 gap-2 bg-slate-200 rounded-xl text-left flex flex-col shadow-md `}
           >
-            <a>Delete</a>
+            <a onClick={() => handleDelete(id)}>Delete</a>
             <a>Edit</a>
             {/* <a >History</a> */}
           </div>

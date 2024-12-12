@@ -6,11 +6,11 @@ export default function Column({
   textColor,
   tickets,
   setTicekts,
-  getTicekts,
+  getTickets,
 }) {
   return (
     <>
-      <div className={`w-72 h-[800px] ${color}`}>
+      <div className={`w-72 h-[800px] ${color} `}>
         <h1 className={`font-bold p-2 text-left title ${textColor}`}>
           {title}
         </h1>
@@ -21,6 +21,7 @@ export default function Column({
               <Ticekt
                 id={ticket.id}
                 title={ticket.title}
+                getTickets={getTickets}
                 // details={ticket.details}
               />
             ))}

@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [tickets, setTickets] = useState([]);
   useEffect(() => {
-    gettickets();
+    getTickets();
   }, []);
 
-  async function gettickets() {
+  async function getTickets() {
     const res = await fetch("/api/tickets", {
       method: "get",
     });
@@ -27,7 +27,7 @@ export default function Home() {
           textColor={"text-sky-600"}
           tickets={tickets}
           setTickets={setTickets}
-          gettickets={gettickets}
+          getTickets={getTickets}
         />
         <Column
           title="Approved"
@@ -36,7 +36,7 @@ export default function Home() {
           textColor={"text-yellow-600"}
           tickets={tickets}
           setTickets={setTickets}
-          gettickets={gettickets}
+          getTickets={getTickets}
         />
         <Column
           title="Done"
@@ -45,7 +45,7 @@ export default function Home() {
           textColor={"text-lime-600"}
           tickets={tickets}
           setTickets={setTickets}
-          gettickets={gettickets}
+          getTickets={getTickets}
         />
       </div>
     </>
