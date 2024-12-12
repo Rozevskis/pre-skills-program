@@ -58,24 +58,17 @@ class TicketController extends Controller implements HasMiddleware
     public function update(Request $request, string $id)
     {
         $ticket = Ticket::findOrFail($id);
-        $fields = $ticket->validate([
-            'title' => 'required|max:255',
-            'details' => 'required|email|unique:users',
-        ]);
+
 
         $newStatus = $request->status;
 
         $ticket->update([
-            'user_id' => 1,
-            'title' => $fields['title'],
-            'details' => $fields['details'],
-            'status' => 'new'
+            'title' => $request['title'] ?? $ticket->title,
+            'details' => $request['details'] ?? $ticket->details,
+            'status' => $request['status'],
         ]);
 
-        return [
-            'ticket' => $ticket,
-            'newStatus' => $newStatus
-        ];
+        return response()->json($ticket, 200);
     }
 
     /**
