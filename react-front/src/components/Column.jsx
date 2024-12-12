@@ -7,10 +7,12 @@ export default function Column({
   tickets,
   setTicekts,
   getTickets,
+  active,
+  setActive,
 }) {
   return (
     <>
-      <div className={`w-72 h-[800px] ${color} `}>
+      <div className={`w-72 h-[800px] ${color}  ${active ? "opacity-80" : ""}`}>
         <h1 className={`font-bold p-2 text-left title ${textColor}`}>
           {title}
         </h1>
@@ -22,6 +24,8 @@ export default function Column({
                 id={ticket.id}
                 title={ticket.title}
                 getTickets={getTickets}
+                active={active}
+                setActive={setActive}
                 // details={ticket.details}
               />
             ))}

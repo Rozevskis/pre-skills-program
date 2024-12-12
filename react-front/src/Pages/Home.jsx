@@ -1,8 +1,9 @@
 import Ticket from "../components/Ticket";
 import Column from "../components/Column";
-import { useEffect, useState } from "react";
+import { act, useEffect, useState } from "react";
 export default function Home() {
   const [tickets, setTickets] = useState([]);
+  const [active, setActive] = useState(false);
   useEffect(() => {
     getTickets();
   }, []);
@@ -16,6 +17,11 @@ export default function Home() {
       setTickets(data);
     }
   }
+
+  function handleDrop(e) {
+    e.preventDefault();
+    console.log(e.dataTransfer.getData("text/plain"));
+  }
   return (
     <>
       <h1 className="title">Home</h1>
@@ -28,6 +34,8 @@ export default function Home() {
           tickets={tickets}
           setTickets={setTickets}
           getTickets={getTickets}
+          active={active}
+          setActive={setActive}
         />
         <Column
           title="Approved"
@@ -37,6 +45,8 @@ export default function Home() {
           tickets={tickets}
           setTickets={setTickets}
           getTickets={getTickets}
+          active={active}
+          setActive={setActive}
         />
         <Column
           title="Done"
@@ -46,7 +56,16 @@ export default function Home() {
           tickets={tickets}
           setTickets={setTickets}
           getTickets={getTickets}
+          active={active}
+          setActive={setActive}
         />
+        <div
+          onDrop={handleDrop}
+          onDragEnter={handleDrop}
+          className="bg-red-400 w-[300px] h-[300px]"
+        >
+          Drop
+        </div>
       </div>
     </>
   );

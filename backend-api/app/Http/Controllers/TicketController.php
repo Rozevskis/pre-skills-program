@@ -30,7 +30,7 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -46,7 +46,19 @@ class TicketController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $ticket = Ticket::findOrFail($id);
+        // $fields = $request->validate([
+        //     'title' => 'required|max:255',
+        //     'details' => 'required|email|unique:users',
+        // ]);
+
+        $ticket = Ticket::update(['status' =>]);
+
+        $token = $user->createToken($request->name);
+        return [
+            'user' => $user,
+            'token' => $token->plainTextToken
+        ];
     }
 
     /**

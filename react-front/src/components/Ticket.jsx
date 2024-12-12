@@ -1,7 +1,14 @@
 import { useContext, useState } from "react";
 import { AppContext } from "../Context/AppContext";
 
-export default function Ticekt({ id, title, details, getTickets }) {
+export default function Ticekt({
+  id,
+  title,
+  details,
+  getTickets,
+  active,
+  setActive,
+}) {
   const [options, setOptions] = useState(false);
   const { token } = useContext(AppContext);
 
@@ -12,11 +19,11 @@ export default function Ticekt({ id, title, details, getTickets }) {
       setOptions(false);
     }
   }
-  function handleDragStart(event, id) {
-    // event.preventDefault();
-    // event.dataTransfer("file")
-    // console.log(`Dragging ${id}`);
-  }
+  const handleDragStart = (e, id) => {
+    // e.preventDefault();
+    // setActive(true);
+    e.dataTransfer.setData("text/plain", id);
+  };
   async function handleDelete(id) {
     const res = await fetch(`/api/tickets/${id}`, {
       method: "DELETE",
@@ -33,8 +40,9 @@ export default function Ticekt({ id, title, details, getTickets }) {
     <>
       <div
         draggable="True"
-        // onDragStart={(e) => handleDragStart(e, id)}
-        className="p-3 gap-2 bg-neutral-100 rounded-xl text-left flex flex-col shadow-md"
+        onDragStart={(e) => handleDragStart(e, id)}
+        // onDragEnd={setActive(false)}
+        className="cursor-pointer active:cursor-grab p-3 gap-2 bg-neutral-100 rounded-xl text-left flex flex-col shadow-md"
       >
         <div className="flex justify-between">
           {id}
